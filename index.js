@@ -4,17 +4,21 @@
 var data = require('./data.json');
 
 function escapeRegexp(str) {
-  return str.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1');
+  return str;
 }
 
-var REPLACE_RE = RegExp(Object.keys(data).map(escapeRegexp).join('|'), 'g');
+var replaceRegExps = Object.keys(data).map(escapeRegexp).map(escapedNeedle => { return RegExp(escapedNeedle, 'g'); });
 
 function replace_fn(match) {
   return data[match];
 }
 
 function unhomoglyph(str) {
-  return str.replace(REPLACE_RE, replace_fn);
+  let s = str;
+  replaceRegExps.forEach(regexp => {
+    s = s.replace(regexp, replace_fn);
+  });
+  return s;
 }
 
 module.exports = unhomoglyph;
