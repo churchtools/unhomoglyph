@@ -16,7 +16,7 @@
   "scripts": {
     "lint": "eslint .",
     "test": "npm run lint && mocha",
-    "update": "node update.js && npm test"
+    "updateX": "node update.js && npm test"
   },
   "devDependencies": {
     "eslint": "^6.6.0",
